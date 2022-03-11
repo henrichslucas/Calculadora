@@ -1,42 +1,29 @@
-//Selecting page elements
+const btns = [
+	...document.querySelectorAll(".numBtn"),
+	...document.querySelectorAll(".symBtn")
+]
+const display = document.querySelector(".display")
+const delBtn = document.querySelector("#deleteBtn")
+const clearBtn = document.querySelector("#clearBtn")
+const eqBtn = document.querySelector("#eqBtn")
 
-let display = document.querySelector(".calculatorDisplay")
-let clearBtn = document.querySelector(".calculatorClearBtn")
-let delBtn = document.querySelector(".calculatorDelBtn")
-let eqBtn = document.querySelector(".calculatorEqBtn")
-let allBtns = document.querySelectorAll("#calculatorBtn")
 
-//Declaring functions
-
-displayStuff = () =>{
-	let number = event.srcElement.value
-	display.append(number)
+function displayValue(event){
+	display.append(event.target.value) 
+}
+function deleteDisplay(){
+	display.removeChild(display.lastChild)
+}
+function clearDisplay(){
+	display.innerHTML = ""
+}
+function solve(){
+	let ans = eval(display.innerHTML)
+	clearDisplay()
+	display.innerHTML = ans
 }
 
-displayClear = () =>{
-	if ( display.innerHTML != ""){
-		display.innerHTML = ""
-	}
-}
-
-displayDel = () =>{
-	if ( display.innerHTML != ""){
-		display.removeChild(display.lastChild)
-	}
-}
-
-showAnswer = () =>{
-	let total = display.innerHTML
-	let totalValue = eval(total)
-	display.innerHTML = String(totalValue)
-}	
-
-//Assigning the functions to their respective page element
-
-for(let i = 0; i< allBtns.length; i++){ 
-	allBtns[i].addEventListener("click", displayStuff)
-}
-
-clearBtn.addEventListener("click", displayClear)
-delBtn.addEventListener("click", displayDel)
-eqBtn.addEventListener("click", showAnswer)
+btns.map(btn => btn.addEventListener("click", displayValue))
+delBtn.addEventListener("click", deleteDisplay)
+clearBtn.addEventListener("click", clearDisplay)
+eqBtn.addEventListener("click", solve)
