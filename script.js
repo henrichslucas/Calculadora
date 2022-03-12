@@ -3,8 +3,8 @@ const btns = [
 	...document.querySelectorAll(".symBtn")
 ]
 const display = document.querySelector(".display")
-const delBtn = document.querySelector("#deleteBtn")
-const clearBtn = document.querySelector("#clearBtn")
+const delBtn = document.querySelector(".deleteBtn")
+const clearBtn = document.querySelector(".clearBtn")
 const eqBtn = document.querySelector("#eqBtn")
 
 
@@ -19,8 +19,11 @@ function clearDisplay(){
 }
 function solve(){
 	let ans = eval(display.innerHTML)
-	clearDisplay()
-	display.innerHTML = ans
+
+	if(typeof(ans) == "number"){
+		clearDisplay()
+		display.innerHTML = ans
+	}
 }
 
 btns.map(btn => btn.addEventListener("click", displayValue))
